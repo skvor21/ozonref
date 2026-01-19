@@ -260,7 +260,7 @@ class OzonReferralBot:
             )
 
             # Попытка немедленной отправки
-            await self.scheduler.submit_immediately(referral.id)
+            self.scheduler.submit_immediately(referral.id)
 
             await update.message.reply_text(
                 "✅ Спасибо! Данные успешно сохранены и отправлены на обработку в Ozon.\n\n"
@@ -321,7 +321,7 @@ class OzonReferralBot:
         try:
             await update.message.reply_text("🚀 Запускаю отправку ожидающих заявок...")
 
-            await self.scheduler.submit_immediately()
+            self.scheduler.submit_immediately()
 
             await update.message.reply_text("✅ Отправка завершена!")
 
