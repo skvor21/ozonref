@@ -154,7 +154,6 @@ ozon-referral-bot/
 
 ### 1. Подготовка сервера
 
-#### Для Ubuntu/Debian Linux:
 ```bash
 # Обновление системы
 sudo apt update && sudo apt upgrade -y
@@ -163,65 +162,8 @@ sudo apt update && sudo apt upgrade -y
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 sudo apt install docker-compose-plugin
-```
-
-#### Для macOS:
-```bash
-# Установка Docker Desktop для Mac
-# Скачайте и установите с https://www.docker.com/products/docker-desktop/
-# Или через Homebrew:
-brew install --cask docker
-```
-
-#### Для CentOS/RHEL:
-```bash
-# Установка Docker
-sudo yum update -y
-sudo yum install -y yum-utils
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-sudo systemctl start docker
-sudo systemctl enable docker
-```
-
-### 2. Получение OZON_COOKIE
-
-**ВАЖНО:** Cookie должен быть получен лично вами, так как он содержит данные вашей сессии.
-
-1. **Откройте браузер** (Chrome, Firefox или Safari)
-
-2. **Перейдите по ссылке:** https://recruitment.ozon.ru/ref-courier-sklad
-
-3. **Откройте Developer Tools:**
-   - **Chrome/Firefox:** нажмите `F12` или `Ctrl+Shift+I` (Cmd+Option+I на Mac)
-   - **Safari:** Включите "Develop" меню в настройках, затем Develop → Show Web Inspector
-
-4. **Перейдите во вкладку "Network" (Сеть)**
-
-5. **Обновите страницу:** нажмите `F5` или `Ctrl+R` (Cmd+R на Mac)
-
-6. **Найдите запрос в списке:**
-   - Ищите запросы к `ozon.ru` или `recruitment.ozon.ru`
-   - Можете отфильтровать по типу "document" или "xhr"
-
-7. **Кликните на любой запрос и найдите заголовок "Cookie"**
-
-8. **Скопируйте значение cookie:**
-   - Найдите `abt_data=...` в строке cookie
-   - Скопируйте всё значение начиная с `abt_data=` и заканчивая точкой с запятой или концом строки
-
-**Пример cookie:**
-```
-abt_data=7.neIH28EDS8VJtDQNNbaBGAjSd-oPflO3dmRIPuqMNrV0UmGRHZZRc9B7D4CNEXijnQpNcQIHr_1gASF3BI9FWuGvBs5-wGr6wmSnyh8nbzkf-ClAgwhvEgg1D4Z40gk_Y-xmXlAxSy2vsr14bgtAgWnJt1wf5O90BRtbcq3yDCkuFtuCcASkmMSgTyoFhQmDbJQ6BHT82E0B9LgCjURgsAxJczV-wvRVddVYbIeUxVMsnlCV3a-LuAparg2xlX5jBe7I9U3UKSqQVUZ67e0tsfet0zEFVsbKQ8qJqrXy0wlg3-2yITG-PRdztTtMxVauCSjrXIm2VHovcrusLEANVu25N3tm_Oe6NgkgV8twOmNZ
-```
-
-**Вставьте этот cookie в файл `.env`:**
-```env
-OZON_COOKIE=abt_data=7.neIH28EDS8VJtDQNNbaBGAjSd-oPflO3dmRIPuqMNrV0UmGRHZZRc9B7D4CNEXijnQpNcQIHr_1gASF3BI9FWuGvBs5-wGr6wmSnyh8nbzkf-ClAgwhvEgg1D4Z40gk_Y-xmXlAxSy2vsr14bgtAgWnJt1wf5O90BRtbcq3yDCkuFtuCcASkmMSgTyoFhQmDbJQ6BHT82E0B9LgCjURgsAxJczV-wvRVddVYbIeUxVMsnlCV3a-LuAparg2xlX5jBe7I9U3UKSqQVUZ67e0tsfet0zEFVsbKQ8qJqrXy0wlg3-2yITG-PRdztTtMxVauCSjrXIm2VHovcrusLEANVu25N3tm_Oe6NgkgV8twOmNZ
-```
 
 # Клонирование проекта
-```bash
 git clone <repository-url>
 cd ozon-referral-bot
 ```

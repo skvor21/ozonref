@@ -1,20 +1,20 @@
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from database.referral_service import ReferralService
 from api.ozon_client import OzonAPIClient
 from config.settings import SUBMIT_INTERVAL_MINUTES
 import logging
-import time
+import asyncio
 
 logger = logging.getLogger(__name__)
 
 class SubmissionScheduler:
     def __init__(self):
-        self.scheduler = BackgroundScheduler()
+        self.scheduler = AsyncIOScheduler()
         self.referral_service = ReferralService()
         self.ozon_client = OzonAPIClient()
 
-    def submit_pending_referrals(self):
+    async def submit_pending_referrals(self):
         """Отправить ожидающие рефералы на Ozon"""
         try:
             logger.info("Starting scheduled submission of pending referrals")
@@ -41,7 +41,7 @@ class SubmissionScheduler:
                     )
 
                     # Небольшая пауза между запросами
-                    time.sleep(1)
+                    await asyncio.sleep(1)
 
                 except Exception as e:
                     logger.error(f"Error submitting referral ID {referral.id}: {str(e)}")
@@ -73,7 +73,7 @@ class SubmissionScheduler:
             self.scheduler.shutdown()
             logger.info("Scheduler stopped")
 
-    def submit_immediately(self, referral_id: int = None):
+    async def submit_immediately(self, referral_id: int = None):
         """Отправить реферал немедленно (по запросу)"""
         if referral_id:
             # Отправить конкретный реферал
@@ -91,5 +91,5 @@ class SubmissionScheduler:
             return result["success"]
         else:
             # Отправить все ожидающие
-            self.submit_pending_referrals()
+            await self.submit_pending_referrals()
             return True
