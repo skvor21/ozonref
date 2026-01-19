@@ -338,8 +338,3 @@ class OzonReferralBot:
 
         # Запускаем бота
         self.application.run_polling()
-
-    async def start_scheduler(self):
-        """Запуск планировщика в фоне"""
-        await asyncio.sleep(5)  # Даем время на инициализацию
-        self.scheduler.start()
